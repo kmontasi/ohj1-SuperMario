@@ -26,14 +26,14 @@ public class alpha : PhysicsGame
 
     //INTERAKTIIVISET ESINEET
     //KOLIKOT !!Vaihda
-    private Image kolikkoKuva = LoadImage("tahti.png");
+    private Image kolikkoKuva = LoadImage("pommi.png");
     //POMMI 
     //satuttaa pelaajaa
-    private Image pommiKuva = LoadImage("pommi.png");
-
+    private Image pomminKuva = LoadImage("tahti.png");
+    
     //VIHOLLISET
     //VIHOLLINEN YKSI
-    private Image vihollisenKuva = LoadImage("vihollinen.png");
+    private Image vihollisenKuva = LoadImage("tahti.png");
 
 
 
@@ -85,12 +85,21 @@ public class alpha : PhysicsGame
         kolikko.Tag = "kolikko";
         Add(kolikko);
     }
+    private void LisaaVihollinen(Vector paikka, double leveys, double korkeus)
+    {
+        PhysicsObject vihollinen = PhysicsObject.CreateStaticObject(leveys, korkeus);
+        vihollinen.IgnoresCollisionResponse = true;
+        vihollinen.Position = paikka;
+        vihollinen.Image = vihollisenKuva;
+        vihollinen.Tag = "vihollinen";
+        Add(vihollinen);
+    }
     private void LisaaPommi(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject pommi = PhysicsObject.CreateStaticObject(leveys, korkeus);
         pommi.IgnoresCollisionResponse = true;
         pommi.Position = paikka;
-        pommi.Image = pommiKuva;
+        pommi.Image = pomminKuva;
         pommi.Tag = "pommi";
         Add(pommi);
     }
@@ -106,15 +115,7 @@ public class alpha : PhysicsGame
     }
     ////HUOM LISÄÄ VIHOLLIENN
     ///
-    private void LisaaVihollinen(Vector paikka, double leveys, double korkeus)
-    {
-        PhysicsObject vihollinen = PhysicsObject.CreateStaticObject(leveys, korkeus);
-        vihollinen.IgnoresCollisionResponse = true;
-        vihollinen.Position = paikka;
-        vihollinen.Image = vihollisenKuva;
-        vihollinen.Tag = "vihollinen";
-        Add(vihollinen);
-    }
+    
     private void LisaaNappaimet()
     {
         Keyboard.Listen(Key.F1, ButtonState.Pressed, ShowControlHelp, "Näytä ohjeet");
