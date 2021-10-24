@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "alpha", "alpha.csproj", "{3ED23938-5A3A-4578-B6EF-CCF807605369}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{90BCAE51-8EFD-4B8C-B5D4-08A6BE446323}"
-	ProjectSection(SolutionItems) = preProject
-		Content\vihollinen.png = Content\vihollinen.png
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
