@@ -4,6 +4,8 @@ using Jypeli.Controls;
 using Jypeli.Widgets;
 using System;
 using System.Collections.Generic;
+
+
 public class main : PhysicsGame
 {   //YLEISET ASETUKSET
     //OHJAIMET
@@ -53,7 +55,7 @@ public class main : PhysicsGame
 
     //PELAAJAN ASETUKSET
     private const double NOPEUS = 100;
-    private const double HYPPYNOPEUS = 600
+    private const double HYPPYNOPEUS = 600;
 
     //PELAAJAMALLIN ASETUKSET
     //PELAAJAN NIMI !!TÄMÄ PYSYY AINA SAMANA ELLEI LISÄTÄ UUTTA PELAAJAA
@@ -68,10 +70,11 @@ public class main : PhysicsGame
     private Image kolikkoKuva = LoadImage("tahti.png");
     //POMMI 
     //satuttaa pelaajaa
-  //  private Image pommiKuva = LoadImage();
+   private Image pommiKuva = LoadImage();
 
     //VIHOLLISET
     //VIHOLLINEN YKSI
+    private Image vihollisenKuva = LoadImage("tahti.png");
 
 
 
