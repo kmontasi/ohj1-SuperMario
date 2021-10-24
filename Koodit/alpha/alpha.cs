@@ -90,8 +90,8 @@ public class alpha : PhysicsGame
         PhysicsObject pommi = PhysicsObject.CreateStaticObject(leveys, korkeus);
         pommi.IgnoresCollisionResponse = true;
         pommi.Position = paikka;
-        pommi.Image = kolikkoKuva;
-        pommi.Tag = " pommi";
+        pommi.Image = pommiKuva;
+        pommi.Tag = "pommi";
         Add(pommi);
     }
     private void LisaaPelaaja(Vector paikka, double leveys, double korkeus)
@@ -111,7 +111,7 @@ public class alpha : PhysicsGame
         PhysicsObject vihollinen = PhysicsObject.CreateStaticObject(leveys, korkeus);
         vihollinen.IgnoresCollisionResponse = true;
         vihollinen.Position = paikka;
-        vihollinen.Image = pommiKuva;
+        vihollinen.Image = vihollisenKuva;
         vihollinen.Tag = "vihollinen";
         Add(vihollinen);
     }
