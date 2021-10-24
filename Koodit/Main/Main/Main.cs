@@ -5,7 +5,7 @@ using Jypeli.Widgets;
 using System;
 using System.Collections.Generic;
 
-public class main : PhysicsGame
+public class Main : PhysicsGame
 {
     public override void Begin()
     {
