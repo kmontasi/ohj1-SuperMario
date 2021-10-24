@@ -70,7 +70,7 @@ public class main : PhysicsGame
     private Image kolikkoKuva = LoadImage("tahti.png");
     //POMMI 
     //satuttaa pelaajaa
-   private Image pommiKuva = LoadImage();
+   private Image pommiKuva = LoadImage("pommi.png");
 
     //VIHOLLISET
     //VIHOLLINEN YKSI
