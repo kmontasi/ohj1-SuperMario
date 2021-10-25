@@ -9,27 +9,42 @@ public class alpha : PhysicsGame
 {   //YLEISET ASETUKSET
     //OHJAIMET
 
+
     // NÄYTYÖN KOKO
     private const int RUUDUN_KOKO = 40;
+
 
     //PELAAJAN ASETUKSET
     private const double NOPEUS = 100;
     private const double HYPPYNOPEUS = 600;
 
+
     //PELAAJAMALLIN ASETUKSET
     //PELAAJAN NIMI !!TÄMÄ PYSYY AINA SAMANA ELLEI LISÄTÄ UUTTA PELAAJAA
     private PlatformCharacter pelaaja1;
+    
 
     //PELAAJAN KUVA
     //!!Lisätään seuraavassa vaiheeessa valikko josta valittua mallia voi muokata. eli eirlaisia hahmoja
     private Image pelaajanKuva = LoadImage("norsu.png");
+
+
+    //PELAAJA KUVA ANIMAATIOT
+    //animaatiot hyppaa
+    private Image pelaajanKuvahyppaa = LoadImage("tahti.png");
+
+
+    //TASON GRAFIIKAT
+    //Tiili
+    private Image TasoTiiliKuva = LoadImage("TasoPommi.png");
+
 
     //INTERAKTIIVISET ESINEET
     //KOLIKOT !!Vaihda
     private Image kolikkoKuva = LoadImage("tahti.png");
     //POMMI 
     //satuttaa pelaajaa
-    private Image pomminKuva = LoadImage("pommi.png");
+    private Image pomminKuva = LoadImage("TasoPommi.png");
     
     //VIHOLLISET
     //VIHOLLINEN YKSI
@@ -58,7 +73,8 @@ public class alpha : PhysicsGame
     {
         TileMap kentta = TileMap.FromLevelAsset("kentta1.txt");
         kentta.SetTileMethod('#', LisaaTaso);
-        kentta.SetTileMethod('-', LisaaPommi);
+        kentta.SetTileMethod('-', LisaaTasoTiili);
+        kentta.SetTileMethod('2', LisaaPommi);
         kentta.SetTileMethod('*', LisaaKolikko);
         kentta.SetTileMethod('p', LisaaPelaaja);
         kentta.SetTileMethod('1', LisaaVihollinen);
@@ -74,6 +90,13 @@ public class alpha : PhysicsGame
         PhysicsObject taso = PhysicsObject.CreateStaticObject(leveys, korkeus);
         taso.Position = paikka;
         taso.Color = Color.Green;
+        Add(taso);
+    }
+    private void LisaaTasoTiili(Vector paikka, double leveys, double korkeus)
+    {
+        PhysicsObject taso = PhysicsObject.CreateStaticObject(leveys, korkeus);
+        taso.Position = paikka;
+        taso.Image = TasoTiiliKuva;
         Add(taso);
     }
     private void LisaaKolikko(Vector paikka, double leveys, double korkeus)
@@ -113,9 +136,20 @@ public class alpha : PhysicsGame
         AddCollisionHandler(pelaaja1, "pommi", TormaaPommiin);
         Add(pelaaja1);
     }
+
+    private void LisaaPelaajaHyppaa(Vector paikka, double leveys, double korkeus)
+    {
+        pelaaja1 = new PlatformCharacter(leveys, korkeus);
+        pelaaja1.Position = paikka;
+        pelaaja1.Mass = 4.0;
+        pelaaja1.Image = pelaajanKuvaHyppaa;
+        AddCollisionHandler(pelaaja1, "kolikko", TormaaKolikkoon);
+        AddCollisionHandler(pelaaja1, "pommi", TormaaPommiin);
+        Add(pelaaja1);
+    }
     ////HUOM LISÄÄ VIHOLLIENN
     ///
-    
+
     private void LisaaNappaimet()
     {
         Keyboard.Listen(Key.F1, ButtonState.Pressed, ShowControlHelp, "Näytä ohjeet");
@@ -132,11 +166,15 @@ public class alpha : PhysicsGame
         ControllerOne.Listen(Button.A, ButtonState.Pressed, Hyppaa, "Pelaaja hyppää", pelaaja1, HYPPYNOPEUS);
 
         PhoneBackButton.Listen(ConfirmExit, "Lopeta peli");
+
+
+        //Lisätään pelihahmolle animaatiot liikkeen lisäksi
+        Keyboard.Listen(Key.Up, ButtonState.Pressed, HyppaaAnimaatio, );
     }
 
-    private void LisaaNappaimet()
+    private void Lisaaanimaatiot()
     {
-        Keyboard.Listen(Key.Up ButtonState.Pressed, )
+        
     }
     private void Liikuta(PlatformCharacter hahmo, double nopeus)
     {
@@ -147,6 +185,14 @@ public class alpha : PhysicsGame
     {
         hahmo.Jump(nopeus);
     }
+
+    private void HyppaaAnimaatio()
+    {
+        if (ButtonState.Up )
+       (LisaaPelaajaHyppaa);
+    }
+        
+   
 
     private void TormaaKolikkoon(PhysicsObject hahmo, PhysicsObject kolikko)
     {
