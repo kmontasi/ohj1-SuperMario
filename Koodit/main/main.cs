@@ -111,7 +111,7 @@ public class main : PhysicsGame
         PhysicsObject vihollinen = PhysicsObject.CreateStaticObject(leveys, korkeus);
         vihollinen.IgnoresCollisionResponse = true;
         vihollinen.Position = paikka;
-        vihollinen.Image = pommiKuva;
+        vihollinen.Image = vihollisenKuva;
         vihollinen.Tag = "vihollinen";
         Add(vihollinen);
     }
