@@ -26,14 +26,14 @@ public class alpha : PhysicsGame
 
     //INTERAKTIIVISET ESINEET
     //KOLIKOT !!Vaihda
-    private Image kolikkoKuva = LoadImage("pommi.png");
+    private Image kolikkoKuva = LoadImage("tahti.png");
     //POMMI 
     //satuttaa pelaajaa
-    private Image pomminKuva = LoadImage("tahti.png");
+    private Image pomminKuva = LoadImage("pommi.png");
     
     //VIHOLLISET
     //VIHOLLINEN YKSI
-    private Image vihollisenKuva = LoadImage("tahti.png");
+    private Image vihollisenKuva = LoadImage("vihollinen.png");
 
 
 
@@ -134,6 +134,10 @@ public class alpha : PhysicsGame
         PhoneBackButton.Listen(ConfirmExit, "Lopeta peli");
     }
 
+    private void LisaaNappaimet()
+    {
+        Keyboard.Listen(Key.Up ButtonState.Pressed, )
+    }
     private void Liikuta(PlatformCharacter hahmo, double nopeus)
     {
         hahmo.Walk(nopeus);

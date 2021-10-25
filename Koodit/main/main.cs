@@ -29,7 +29,7 @@ public class main : PhysicsGame
     private Image kolikkoKuva = LoadImage("tahti.png");
     //POMMI 
     //satuttaa pelaajaa
-    private Image pommiKuva = LoadImage("pommi.png");
+    private Image pommiKuva = LoadImage("pommi");
 
     //VIHOLLISET
     //VIHOLLINEN YKSI
@@ -90,8 +90,8 @@ public class main : PhysicsGame
         PhysicsObject pommi = PhysicsObject.CreateStaticObject(leveys, korkeus);
         pommi.IgnoresCollisionResponse = true;
         pommi.Position = paikka;
-        pommi.Image = kolikkoKuva;
-        pommi.Tag = " pommi";
+        pommi.Image = pommiKuva;
+        pommi.Tag = "pommi";
         Add(pommi);
     }
     private void LisaaPelaaja(Vector paikka, double leveys, double korkeus)
