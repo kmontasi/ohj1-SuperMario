@@ -36,7 +36,10 @@ public class alpha : PhysicsGame
 
     //TASON GRAFIIKAT
     //Tiili
-    private Image TasoTiiliKuva = LoadImage("TasoPommi.png");
+    private Image TasoTiiliKuva = LoadImage("TasoRuoho.png");
+
+    //Putki ALAS
+    private Image PutkiAlasKuva = LoadImage("PutkiALas.png");
 
 
     //INTERAKTIIVISET ESINEET
@@ -44,7 +47,7 @@ public class alpha : PhysicsGame
     private Image kolikkoKuva = LoadImage("tahti.png");
     //POMMI 
     //satuttaa pelaajaa
-    private Image pomminKuva = LoadImage("TasoPommi.png");
+    private Image pomminKuva = LoadImage("Pommi.png");
     
     //VIHOLLISET
     //VIHOLLINEN YKSI
@@ -73,6 +76,7 @@ public class alpha : PhysicsGame
     {
         TileMap kentta = TileMap.FromLevelAsset("kentta1.txt");
         kentta.SetTileMethod('#', LisaaTaso);
+        kentta.SetTileMethod('/', LisaaputkiAlas);
         kentta.SetTileMethod('-', LisaaTasoTiili);
         kentta.SetTileMethod('2', LisaaPommi);
         kentta.SetTileMethod('*', LisaaKolikko);
@@ -99,6 +103,16 @@ public class alpha : PhysicsGame
         taso.Image = TasoTiiliKuva;
         Add(taso);
     }
+
+    private void LisaaputkiAlas(Vector paikka, double leveys, double korkeus)
+    {
+        PhysicsObject taso = PhysicsObject.CreateStaticObject(leveys, korkeus);
+        taso.Position = paikka;
+        taso.Image = PutkiAlasKuva;
+        Add(taso);
+    }
+
+
     private void LisaaKolikko(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject kolikko = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -137,16 +151,7 @@ public class alpha : PhysicsGame
         Add(pelaaja1);
     }
 
-    private void LisaaPelaajaHyppaa(Vector paikka, double leveys, double korkeus)
-    {
-        pelaaja1 = new PlatformCharacter(leveys, korkeus);
-        pelaaja1.Position = paikka;
-        pelaaja1.Mass = 4.0;
-        pelaaja1.Image = pelaajanKuvaHyppaa;
-        AddCollisionHandler(pelaaja1, "kolikko", TormaaKolikkoon);
-        AddCollisionHandler(pelaaja1, "pommi", TormaaPommiin);
-        Add(pelaaja1);
-    }
+
     ////HUOM LISÄÄ VIHOLLIENN
     ///
 
@@ -169,7 +174,7 @@ public class alpha : PhysicsGame
 
 
         //Lisätään pelihahmolle animaatiot liikkeen lisäksi
-        Keyboard.Listen(Key.Up, ButtonState.Pressed, HyppaaAnimaatio, );
+       
     }
 
     private void Lisaaanimaatiot()
@@ -186,12 +191,6 @@ public class alpha : PhysicsGame
         hahmo.Jump(nopeus);
     }
 
-    private void HyppaaAnimaatio()
-    {
-        if (ButtonState.Up )
-       (LisaaPelaajaHyppaa);
-    }
-        
    
 
     private void TormaaKolikkoon(PhysicsObject hahmo, PhysicsObject kolikko)
