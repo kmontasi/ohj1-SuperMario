@@ -26,7 +26,7 @@ public class alpha : PhysicsGame
 
     //PELAAJAN KUVA
     //!!Lisätään seuraavassa vaiheeessa valikko josta valittua mallia voi muokata. eli eirlaisia hahmoja
-    private Image pelaajanKuva = LoadImage("norsu.png");
+    private Image pelaajanKuva = LoadImage("Plumber.png");
 
 
     //PELAAJA KUVA ANIMAATIOT
@@ -85,10 +85,10 @@ public class alpha : PhysicsGame
 
         kentta.Execute(RUUDUN_KOKO, RUUDUN_KOKO);
         Level.CreateBorders();
-        Level.Background.CreateGradient(Color.White, Color.SkyBlue);
+        Level.Background.CreateGradient(Color.White, Color.Black);
     }
 
-
+ 
     private void LisaaTaso(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject taso = PhysicsObject.CreateStaticObject(leveys, korkeus);
