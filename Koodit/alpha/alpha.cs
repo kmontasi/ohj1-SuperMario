@@ -4,6 +4,8 @@ using Jypeli.Controls;
 using Jypeli.Widgets;
 using System;
 using System.Collections.Generic;
+ 
+
 
 public class alpha : PhysicsGame
 {   //YLEISET ASETUKSET
@@ -21,6 +23,7 @@ public class alpha : PhysicsGame
 
     //PELAAJAMALLIN ASETUKSET
     //PELAAJAN NIMI !!TÄMÄ PYSYY AINA SAMANA ELLEI LISÄTÄ UUTTA PELAAJAA
+    //TO-DO- TOISEN PELAAJAN LISÄÄMINEN
     private PlatformCharacter pelaaja1;
     
 
@@ -42,16 +45,30 @@ public class alpha : PhysicsGame
     private Image PutkiAlasKuva = LoadImage("PutkiALas.png");
 
 
+
+
     //INTERAKTIIVISET ESINEET
+    
+
+
     //KOLIKOT !!Vaihda
     private Image kolikkoKuva = LoadImage("tahti.png");
+
+
+    //NEGATIIVISET OLIOT
     //POMMI 
-    //satuttaa pelaajaa
+    //satuttaa pelaajaa ja ottaa yhden dyfämen pois
     private Image pomminKuva = LoadImage("Pommi.png");
+    //POMMIN RÄJÄHDUS ANIMAATIO
+
+    //POMMISTA TULEVAT SAVUT
     
     //VIHOLLISET
-    //VIHOLLINEN YKSI
+    //VIHOLLINEN YKSI (TULIHAHMO)
     private Image vihollisenKuva = LoadImage("vihollinen.png");
+
+    //VIHOLLINEN YKSI TULIPALLO TO-DO!!!
+
 
 
 
@@ -164,13 +181,9 @@ public class alpha : PhysicsGame
         Keyboard.Listen(Key.Right, ButtonState.Down, Liikuta, "Liikkuu vasemmalle", pelaaja1, NOPEUS);
         Keyboard.Listen(Key.Up, ButtonState.Pressed, Hyppaa, "Pelaaja hyppää", pelaaja1, HYPPYNOPEUS);
 
-        ControllerOne.Listen(Button.Back, ButtonState.Pressed, Exit, "Poistu pelistä");
-
-        ControllerOne.Listen(Button.DPadLeft, ButtonState.Down, Liikuta, "Pelaaja liikkuu vasemmalle", pelaaja1, -NOPEUS);
-        ControllerOne.Listen(Button.DPadRight, ButtonState.Down, Liikuta, "Pelaaja liikkuu oikealle", pelaaja1, NOPEUS);
-        ControllerOne.Listen(Button.A, ButtonState.Pressed, Hyppaa, "Pelaaja hyppää", pelaaja1, HYPPYNOPEUS);
-
         PhoneBackButton.Listen(ConfirmExit, "Lopeta peli");
+
+        Keyboard.lis
 
 
         //Lisätään pelihahmolle animaatiot liikkeen lisäksi
@@ -205,5 +218,19 @@ public class alpha : PhysicsGame
 
         MessageDisplay.Add("BREH SÄ KUOLIT");
         pommi.Destroy();
+    }
+
+
+
+
+    //ANIMAATIOT
+
+    private void PelaajaHyppy(object sender, KeyEventArgs e)
+    {
+        if (e.GetValue == (char)Microsoft.Xna.Framework.Input.Keys.w)
+        {
+
+
+        }
     }
 }

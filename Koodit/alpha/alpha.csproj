@@ -5,11 +5,22 @@
         <TargetFramework>net5.0</TargetFramework>
         <PublishReadyToRun>false</PublishReadyToRun>
         <TieredCompilation>false</TieredCompilation>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
     </PropertyGroup>
 
     <ItemGroup>
       <None Remove="Content\pommi.png" />
       <None Remove="Content\tahti.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
+        <WrapperTool>tlbimp</WrapperTool>
+        <VersionMinor>4</VersionMinor>
+        <VersionMajor>2</VersionMajor>
+        <Guid>215d64d2-031c-33c7-96e3-61794cd1ee61</Guid>
+      </COMReference>
     </ItemGroup>
 
     <ItemGroup>
@@ -21,6 +32,7 @@
     <ItemGroup>
         <PackageReference Include="Jypeli.NET" Version="10.*" />
         <PackageReference Include="Jypeli.FarseerPhysics.NET" Version="1.0.*" />
+        <PackageReference Include="Uno.UI" Version="3.10.11" />
     </ItemGroup>
 
     <ItemGroup>
