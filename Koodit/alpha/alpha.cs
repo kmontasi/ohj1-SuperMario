@@ -4,7 +4,7 @@ using Jypeli.Controls;
 using Jypeli.Widgets;
 using System;
 using System.Collections.Generic;
- 
+using System.Windows.Forms;
 
 
 public class alpha : PhysicsGame
@@ -48,7 +48,7 @@ public class alpha : PhysicsGame
 
 
     //INTERAKTIIVISET ESINEET
-    
+
 
 
     //KOLIKOT !!Vaihda
@@ -227,10 +227,11 @@ public class alpha : PhysicsGame
 
     private void PelaajaHyppy(object sender, KeyEventArgs e)
     {
-        if (e.GetValue == (char)Microsoft.Xna.Framework.Input.Keys.w)
+        if (e.KeyValue == (char)Microsoft.Xna.Framework.Input.Keys.E)
         {
-
+            
 
         }
     }
+
 }
