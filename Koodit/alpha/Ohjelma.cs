@@ -18,7 +18,7 @@ namespace Program
         [STAThread]
         static void Main()
         {
-            using (var game = new alpha())
+            using (var game = new Alpha())
                 game.Run();
         }
     }
