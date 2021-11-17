@@ -86,6 +86,7 @@ public class Alpha : PhysicsGame
     private Image vihollisenPieniApina = LoadImage("pieniapina.png");
     /// VPienen apinan banaani
     private Image lamauttavaBanaani = LoadImage("lamauttavabanaani.png");
+<<<<<<< HEAD
 
 
 
@@ -93,6 +94,15 @@ public class Alpha : PhysicsGame
     private Image vihollisenKuvaTulihahmo = LoadImage("vihollinen.png");//VIHOLLINEN YKSI (TULIHAHMO)
                                                                         //VIHOLLINEN YKSI TULIPALLO !!!
     private Image tulipalloKuva = LoadImage("tulipallo.png");//VIHOLLINEN YKSI TULIPALLO ORDNANCE (TULIHAHMO)
+=======
+
+
+
+    //Vihollinen tulijhahmo
+    private Image vihollisenKuvaTulihahmo = LoadImage("vihollinen.png");//VIHOLLINEN YKSI (TULIHAHMO)
+            //VIHOLLINEN YKSI TULIPALLO !!!
+            private Image tulipalloKuva = LoadImage("tulipallo.png");//VIHOLLINEN YKSI TULIPALLO ORDNANCE (TULIHAHMO)
+>>>>>>> 36e816c89939bcf864b73ec1ba6796e49fd75683
     ///-----------------------------------------------------------------------------------------------------///
 
 
@@ -120,13 +130,31 @@ public class Alpha : PhysicsGame
 
 
     }
+<<<<<<< HEAD
 
+=======
+    
 
     ///-----------------------------------------------------------------------------------------------------///
 
     ///!!!YLEISET ASETUKSET!!!
+>>>>>>> 36e816c89939bcf864b73ec1ba6796e49fd75683
 
+    ///-----------------------------------------------------------------------------------------------------///
 
+<<<<<<< HEAD
+    ///!!!YLEISET ASETUKSET!!!
+=======
+    ///  LUO PISTELASKURI
+    ///  Luodaan int meter psitelaskuri
+    private IntMeter pistelaskuri;
+>>>>>>> 36e816c89939bcf864b73ec1ba6796e49fd75683
+
+    void LuoPistelaskuri()
+    {
+        pistelaskuri = new IntMeter(0);
+
+<<<<<<< HEAD
     ///  LUO PISTELASKURI
     ///  Luodaan int meter psitelaskuri
     private IntMeter pistelaskuri;
@@ -134,6 +162,17 @@ public class Alpha : PhysicsGame
     void LuoPistelaskuri()
     {
         pistelaskuri = new IntMeter(0);
+=======
+        Label pistenaytto = new Label();
+        pistenaytto.X = Screen.Left + 970;
+        pistenaytto.Y = Screen.Top - 70;
+        pistenaytto.TextColor = Color.White;
+        pistenaytto.Color = Color.Red;
+
+        pistenaytto.BindTo(pistelaskuri);
+        Add(pistenaytto);
+    }
+>>>>>>> 36e816c89939bcf864b73ec1ba6796e49fd75683
 
         Label pistenaytto = new Label();
         pistenaytto.X = Screen.Left + 970;
@@ -141,6 +180,7 @@ public class Alpha : PhysicsGame
         pistenaytto.TextColor = Color.White;
         pistenaytto.Color = Color.Red;
 
+<<<<<<< HEAD
         pistenaytto.BindTo(pistelaskuri);
         Add(pistenaytto);
     }
@@ -160,6 +200,22 @@ public class Alpha : PhysicsGame
         aikanaytto.Y = Screen.Top - 70;
         Add(aikanaytto);
 
+=======
+    ///lUO AIKALASKURI
+    private void LuoAikalaskuri()
+    {
+        Timer aikalaskuri = new Timer();
+        aikalaskuri.Start();
+
+        Label aikanaytto = new Label();
+        aikanaytto.TextColor = Color.White;
+        aikanaytto.DecimalPlaces = 1;
+        aikanaytto.BindTo(aikalaskuri.SecondCounter);
+        aikanaytto.X = Screen.Left + 920;
+        aikanaytto.Y = Screen.Top - 70;
+        Add(aikanaytto);
+
+>>>>>>> 36e816c89939bcf864b73ec1ba6796e49fd75683
     }
 
 
@@ -349,7 +405,11 @@ public class Alpha : PhysicsGame
             Vector aloitus = new Vector(200, 0.0);
             tulipallo.Hit(aloitus * 1);
 
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 36e816c89939bcf864b73ec1ba6796e49fd75683
         }
     }
 
@@ -450,6 +510,7 @@ public class Alpha : PhysicsGame
         Add(pelaaja1);
     }
     /// Pelaajan hyppy animaatio
+<<<<<<< HEAD
     private void Hyppaa(PlatformCharacter hahmo, double nopeus)
     {
         hahmo.Jump(nopeus);
@@ -459,6 +520,17 @@ public class Alpha : PhysicsGame
     {
         hahmo.Walk(nopeus);
     }
+=======
+        private void Hyppaa(PlatformCharacter hahmo, double nopeus)
+        {
+            hahmo.Jump(nopeus);
+        }
+    //pelaaja  kävely
+        private void Liikuta(PlatformCharacter hahmo, double nopeus)
+        {
+            hahmo.Walk(nopeus);
+        }
+>>>>>>> 36e816c89939bcf864b73ec1ba6796e49fd75683
 
 
     ///pelaajan animaatiot
@@ -483,6 +555,7 @@ public class Alpha : PhysicsGame
 
     ///Saavutukset, elämän ja ajan vähennys sekä lisäys
     ///
+<<<<<<< HEAD
 
     ///ELÄMÄN VÄHENNYS
     ///
@@ -496,6 +569,24 @@ public class Alpha : PhysicsGame
     private void elamanLisays()
     {
         elamalaskuri.Value += 1;
+=======
+
+    ///ELÄMÄN VÄHENNYS
+    ///
+
+    private void elamanVähennys()
+    {
+        
+        elamalaskuri.Value -= 1;
+    }
+
+    private void elamanLisays()
+    {
+        elamalaskuri.Value += 1;
+    }
+
+
+>>>>>>> 36e816c89939bcf864b73ec1ba6796e49fd75683
     }
 
 
@@ -527,4 +618,10 @@ public class Alpha : PhysicsGame
 //       LisaaTulipallo(paikka, leveys, korkeus);
 //}
 
+<<<<<<< HEAD
 //    }
+=======
+    
+ 
+  
+>>>>>>> 36e816c89939bcf864b73ec1ba6796e49fd75683
