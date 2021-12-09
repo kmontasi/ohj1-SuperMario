@@ -19,7 +19,7 @@ namespace Program
         static void Main()
         {
             using (var game = new Alpha())
-                game.Run();
+               game.Run();
         }
     }
 }
