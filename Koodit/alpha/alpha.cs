@@ -3,95 +3,72 @@ using Jypeli.Widgets;
 using System;
 using System.Collections.Generic;
 
-
-
+/// <summary>
+/// @author kmontasi
+/// @version 13.12.2021
+/// <summary>
+///
 public class Alpha : PhysicsGame
 {
-
-    private const int RUUDUN_KOKO = 40;// NÄYTYÖN KOKO
-    ///-----------------------------------------------------------------------------------------------------///
-    ///PELAAJAN KAIKKI ASETUKSET!!!
-    //PELAAJAMALLIN ASETUKSET
-    //PELAAJAN NIMI !!TÄMÄ PYSYY AINA SAMANA ELLEI LISÄTÄ UUTTA PELAAJAA
+    /// <summary>
+    /// pelin asetukset sekä pelaajan animaation
+    /// </summary>
+    private const int RUUDUN_KOKO = 40;
     private PlatformCharacter pelaaja1;
-    //PELAAJAN ASETUKSET
     private const double NOPEUS = 100;
     private const double HYPPYNOPEUS = 600;
-    ///Pelaajan Animaatiot ja Grafiikat
-    private Image pelaajanKuva = LoadImage("PlumberB.png"); ///Pelaajan STATIC animaatio
-    private Image pelaajanKuvaHyppy = LoadImage("PlumberHyppy.png");///Pelaaajan hyppy animaatio
+    private Image pelaajanKuva = LoadImage("PlumberB.png"); 
+    private Image pelaajanKuvaHyppy = LoadImage("PlumberHyppy.png");
 
-
-    ///-----------------------------------------------------------------------------------------------------///
-    //TASON GRAFIIKAT
-    private Image TasoRuohoKuva = LoadImage("TasoRuoho.png");  //RUOHO
-    private Image PutkiAlasKuva = LoadImage("Putkialas.png");  //Putki ALAS
-                                                               //Putki Start ylös
-    private Image TiiliTasoKuva = LoadImage("tiilitaso.png");  //Tiilitaso
-    private Image KiviKuva = LoadImage("kivi.png");            //KiviTaso
-    ///-----------------------------------------------------------------------------------------------------///
-
-
-    //INTERAKTIIVISET ESINEET SEKÄ POWERUPIT
-
-    //tahti !!Vaihda
-    private Image tahtiKuva = LoadImage("tahti.png");
-
-    //elämät
-    private Image SydanKuva = LoadImage("sydan.png");
-    ///-----------------------------------------------------------------------------------------------------///
-
-    //NEGATIIVISET OLIOT
-
-    //satuttaa pelaajaa ja ottaa yhden dyfämen pois
-    private Image pomminKuva = LoadImage("Pommi.png");//POMMI  kUVA'
-
-    //POMMIN TO DO !!! RÄJÄHDUS ANIMAATIO
-    private Image loppuLippu = LoadImage("lippu.png");//POMMI  kUVA'
-    //POMMISTA TULEVAT SAVUT
-
-    //VIHOLLISET
-
-    //Vihollinen pieniapina
     /// <summary>
-    /// ampuu banaaneja alaspäin
+    /// Kuvat kaikista objekteista
     /// </summary>
-    /// 
-
-    /// VPienen apinan banaani
-
-
-
+    private Image TasoRuohoKuva = LoadImage("TasoRuoho.png");  
+    private Image PutkiAlasKuva = LoadImage("Putkialas.png");  
+    private Image TiiliTasoKuva = LoadImage("tiilitaso.png");  
+    private Image KiviKuva = LoadImage("kivi.png");            
+    private Image tahtiKuva = LoadImage("tahti.png");
+    private Image SydanKuva = LoadImage("sydan.png");
+    private Image loppuLippu = LoadImage("lippu.png");
+    /// <summary>
+    /// vihollisten animaatiot ja muut kuvat
+    /// </summary>
     private Image vihollisenPieniApina = LoadImage("pieniapina.png");
     private Image lamauttavaBanaani = LoadImage("lamauttavabanaani.png");
-    //Vihollinen tulijhahmo
-    private Image vihollisenKuvaTulihahmo = LoadImage("vihollinen.png");//VIHOLLINEN YKSI (TULIHAHMO
-    private Image tulipalloKuva = LoadImage("tulipallo.png");//VIHOLLINEN YKSI TULIPALLO ORDNANCE (TULIHAHMO)
+    private Image vihollisenKuvaTulihahmo = LoadImage("vihollinen.png");
+    private Image tulipalloKuva = LoadImage("tulipallo.png");
     private Image[] KongApina = LoadImages("kongapina", "kongapinaleft");
     private Image Boulder = LoadImage("boulder.png");
-    ///-----------------------------------------------------------------------------------------------------///
-    ///
+ 
 
-
-    //ALOITUS JA MAIN
+    /// <summary>
+    /// Pääohjelma alkaa sekä se kutsuu valikon
+    /// </summary>
     public override void Begin()
     {
         Valikko();
-        
     }
-    List<Label> valikonKohdat;
-   private void Valikko()
+
+
+    /// <summary>
+    /// Valikko jossa kaikki asetukset
+    /// kun klikataan aloita, kutsutaan aliohjelma
+    /// kun valitaan lopeta peli, sammuta ohjelma
+    /// </summary>
+
+   List<Label> valikonKohdat;
+    private void Valikko()
     { 
-        Label otsikko = new Label("Pupuhuhdan Plumberman"); // Luodaan otsikko
-        otsikko.Y = 100; // Otsikko on hieman valikonkohtien yläpuolella
-        otsikko.Font = new Font(40, true); // Otsikon teksti on suurempi ja boldattu
+        Label otsikko = new Label("Pupuhuhdan Plumberman"); 
+        otsikko.Y = 100; 
+        otsikko.Font = new Font(40, true);
         Add(otsikko);
 
-        valikonKohdat = new List<Label>(); // Alustetaan lista, johon valikon kohdat tulevat
+        valikonKohdat = new List<Label>(); 
 
-        Label kohta1 = new Label("Aloita uusi peli");  // Luodaan uusi Label-olio, joka toimii uuden pelin aloituskohtana
-        kohta1.Position = new Vector(0, 40);  // Asetetaan valikon ensimmäinen kohta hieman kentän keskikohdan yläpuolelle
-        valikonKohdat.Add(kohta1);  // Lisätään luotu valikon kohta listaan jossa kohtia säilytetään
+        Label kohta1 = new Label("Aloita uusi peli");  
+        kohta1.Position = new Vector(0, 40); 
+        valikonKohdat.Add(kohta1);  
 
 
         Label kohta3 = new Label("Lopeta peli");
@@ -112,7 +89,12 @@ public class Alpha : PhysicsGame
         Mouse.ListenOn(kohta1, HoverState.Enter, MouseButton.None, ButtonState.Irrelevant, ValikossaLiikkuminen, null, kohta1, true);
         Mouse.ListenOn(kohta1, HoverState.Exit, MouseButton.None, ButtonState.Irrelevant, ValikossaLiikkuminen, null, kohta1, false);
     }
-    void ValikossaLiikkuminen(Label kohta, bool paalla)
+
+
+    /// <summary>
+    /// värjää valikon otsikko kun hiiri on sen päällä
+    /// </summary>
+    private void ValikossaLiikkuminen(Label kohta, bool paalla)
     {
         if (paalla)
         {
@@ -123,16 +105,18 @@ public class Alpha : PhysicsGame
             kohta.TextColor = Color.Black;
         }
     }
-    ///-----------------------------------------------------------------------------------------------------///
-
-    ///!!!YLEISET ASETUKSET!!!
+   
+    /// <summary>
+    /// muut aliohjelmat kun vlaikosta on valittu aloita peli, aloitetaan clear allilla joka poistaa vanhat valikon grafiikat
+    /// tämän jälkeen kutsutaan txt kenttä ja lisätään kaikki graafiset ominaisuudet
+    /// aliohjelna myös kutsuu aika-,elämä- sekä elämälaskurin.
+    /// </summary>
     private void aloitaPeli()
     {
         ClearAll();
         
-        ///PERUSASETUKSET
 
-        Gravity = new Vector(0, -1000);///Painovoima
+        Gravity = new Vector(0, -1000);
 
         LuoKentta();///Luo kenttä kutsumalla text
         LisaaNappaimet();///Lisää ohjaimet
@@ -140,10 +124,7 @@ public class Alpha : PhysicsGame
         Camera.Follow(pelaaja1);
         Camera.ZoomFactor = 1.2;
         Camera.StayInLevel = true;
-
-        MasterVolume = 0.5;
-
-        ///kutus aikalaskuri
+        MasterVolume = 0.0;
         LuoPistelaskuri();
         LuoElamalaskuri();
         LuoAikalaskuri();
@@ -151,8 +132,9 @@ public class Alpha : PhysicsGame
     }
 
 
-    ///  LUO PISTELASKURI
-    ///  Luodaan int meter psitelaskuri
+    /// <summary>
+    /// luodaan globaali pistelaskuri sekä sille osio
+    /// </summary>
     private DoubleMeter pistelaskuri;
 
     private void LuoPistelaskuri()
@@ -172,7 +154,9 @@ public class Alpha : PhysicsGame
     }
 
 
-    ///lUO AIKALASKURI
+    /// <summary>
+    /// luodaan aikalaskuri sekä sen ominaisuudet
+    /// </summary>
     private Timer aikalaskuri;
     private void LuoAikalaskuri()
     {
@@ -190,7 +174,9 @@ public class Alpha : PhysicsGame
     }
 
 
-    ///LUODAAN  ELÄMÄLASKURI
+    /// <summary>
+    /// luodaan elämälaskuri ja sen ominaisuudet
+    /// </summary>
     private DoubleMeter elamalaskuri;
 
     void LuoElamalaskuri()
@@ -206,19 +192,22 @@ public class Alpha : PhysicsGame
         Add(elamapalkki);
     }
 
+    /// <summary>
+    /// kutsutaan jäviö valikko kun elämät loppuvat ja samalla clear all niin poistetaan vanha pelikenttä
+    /// </summary>
 
     private void ElamaLoppui()
     {
         ClearAll();
         int valinta = 1;
         tulosValikko(valinta);
-
-
-
     }
-    ///-----------------------------------------------------------------------------------------------------///
+    
 
-    //LUODAAN KENTTÄ 
+    /// <summary>
+    /// luodaan kentt¨ä sekä annetaan olioille tietyt kutsut
+    /// </summary>
+
     private void LuoKentta()
     {
         TileMap kentta = TileMap.FromLevelAsset("kentta1.txt");
@@ -238,7 +227,9 @@ public class Alpha : PhysicsGame
     }
 
 
-    /// OHJAIMET
+    /// <summary>
+    /// luodaan ohjaimet sekä pelaajaa animaatioliikkeet
+    /// </summary>
     private void LisaaNappaimet()
     {
         Keyboard.Listen(Key.F1, ButtonState.Pressed, ShowControlHelp, "Näytä ohjeet");
@@ -255,11 +246,9 @@ public class Alpha : PhysicsGame
     }
 
 
-    ///-----------------------------------------------------------------------------------------------------///
-
-
-    ///LISÄÄ RAKENNUSPALIKAT!!!
-    ///Lisaa ruskea persutaso mutataso
+    /// <summary>
+    /// aliohjelna mustalle tasolle
+    /// </summary>
 
 
     private void LisaaTaso(Vector paikka, double leveys, double korkeus)
@@ -270,7 +259,11 @@ public class Alpha : PhysicsGame
         Add(taso);
     }
 
-    ///LISÄÄ PERUS RUOHOTASO
+
+/// <summary>
+/// aliohjelma ruohotasolle
+/// </summary>
+
     private void LisaaTasoRuoho(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject taso = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -283,7 +276,9 @@ public class Alpha : PhysicsGame
 
 
     }
-    ///lISÄÄ PERUS tiilitaso
+    /// <summary>
+    /// aliohjelma tiilitasolle
+    /// </summary>
     private void LisaaLoppuLippu(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject lippu = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -293,15 +288,24 @@ public class Alpha : PhysicsGame
         lippu.Tag = "lippu";
         Add(lippu);
     }
+
+
+    /// <summary>
+    /// peli loppuu sekä  clear all kun pelaaja osuu loppu lippuun eli maaliin
+    /// kutsuu tulosvalikon sekä antaa valikon asetukset
+    /// </summary>
     private void TormaaLoppuLippuun(PhysicsObject hahmo, PhysicsObject lippu)
     {
         ClearAll();
         int valinta = 0;
         tulosValikko(valinta);
-        
-
-
     }
+
+    /// <summary>
+    /// aliohjelma tulosvalikolle 
+    /// päättää otsikon toisen ohjelman lähetetyn arvon avulla eli onko häviö valikko vai onko voittovalikko
+    /// </summary>
+
     private void tulosValikko(int valinta)
     {
         string otsikkoSisältö;
@@ -342,10 +346,6 @@ public class Alpha : PhysicsGame
         aika.Position = new Vector(0, -60);
         valikonKohdat.Add(aika);
 
-
-
-
-        // Lisätään kaikki luodut kohdat peliin foreach-silmukalla
         foreach (Label valikonKohta in valikonKohdat)
         {
 
@@ -361,7 +361,9 @@ public class Alpha : PhysicsGame
         Mouse.ListenOn(kohta1, HoverState.Exit, MouseButton.None, ButtonState.Irrelevant, ValikossaLiikkuminen, null, kohta1, false);
     }
 
-    /// Lisää putki alas
+    /// <summary>
+    /// aliohjelma putkelle
+    /// </summary>
     private void LisaaputkiAlas(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject taso = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -372,10 +374,9 @@ public class Alpha : PhysicsGame
         AddCollisionHandler(taso, "Banaani", TormaaLamauttavaanBanaaniin);
 
     }
-    /// Lisää putki top
-
-
-    ///LISÄÄ TIILITAS
+    /// <summary>
+    /// aliohjelma tiilitaso
+    /// </summary>
 
     private void LisaaTiiliTaso(Vector paikka, double leveys, double korkeus)
     {
@@ -385,7 +386,9 @@ public class Alpha : PhysicsGame
         Add(LisaaTiiliTaso);
     }
 
-    ///Kun kertakäyttöesineet osuvat tasoiin niin käyttävät alla olevaa koodia poistamiseen
+    /// <summary>
+    /// aliohjelma kivitasolle
+    /// </summary>
     private void LisaaKivi(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject kivi = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -393,12 +396,12 @@ public class Alpha : PhysicsGame
         kivi.Image = KiviKuva;
         Add(kivi);
     }
-    ///-------------------------------------------------
-    /// ----------------------------------------------------///
 
 
-    ///POWERUPIT 
-    ///kOLIKOT JOISTA VÄHENNETÄÄN AIKAA SUORITUSISTA
+    /// <summary>
+    /// aliohjelma tähdelle sekä sen ominaisuudet
+    /// </summary>
+    /// 
     private void LisaaTahti(PhysicsObject vihollinen)
     {
         PhysicsObject tahti = new PhysicsObject(25, 25);
@@ -412,6 +415,10 @@ public class Alpha : PhysicsGame
         Add(tahti);
 
     }
+
+    /// <summary>
+    /// aliohjelma sydämelle
+    /// </summary>
     private void LisaaSydan(PhysicsObject vihollinen)
     {
         PhysicsObject sydan = new PhysicsObject(25, 25);
@@ -426,6 +433,10 @@ public class Alpha : PhysicsGame
 
     }
 
+    /// <summary>
+    /// aliohjelma pääviholliselle
+    /// kong luo ajastimen sekä joka 1.8 sekuntti kutsuu kiviohjelman joka vierii eteenpäin
+    /// </summary>
     private void LisaaKongApina(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject kongApina = PhysicsObject.CreateStaticObject(70, 120);
@@ -552,7 +563,11 @@ public class Alpha : PhysicsGame
     }
 
 
-
+    /// <summary>
+    /// pieniapina joka heittää banaaneja ajastimen mukaan, siinä on myös rand joka päättää että heitetäänkö banaani ja mihin suuntaan se heitetääm
+    /// </summary>
+ 
+   
     private void LisaaVihollinenPieniApina(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject vihollinenPieniApina = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -571,11 +586,18 @@ public class Alpha : PhysicsGame
     }
     private void TormaaVihollinenPieniApina(PhysicsObject hahmo, PhysicsObject vihollinen)
     {
-
+            
         vihollinen.Destroy();
         LisaaTahti(vihollinen);
         LisaaSydan(vihollinen);
     }
+
+   
+    /// <summary>
+    /// pienen apinan heitettävä aliohjelma banani, tässä on rand gen
+    /// </summary>
+
+
     private void LisaaBanaani(PhysicsObject vihollinenPieniApina)
     {
         if (vihollinenPieniApina.IsDestroyed == true)
@@ -614,13 +636,19 @@ public class Alpha : PhysicsGame
         }
 
     }
+
+    /// <summary>
+    /// mitä käy kun banaaniin osutaan
+    /// pelaajan elämä vähennetään ja banaani tulotaan (huom!! banaanilla on monta collaria)
+    /// </summary>
+    /// 
     private void TormaaLamauttavaanBanaaniin(PhysicsObject hahmo, PhysicsObject Banaani)
     {
         if (hahmo == pelaaja1)
         {
             double x = 0.1;
             double y = 2;
-            jaadytys(y);
+
             elamanVähennys(x);
         }
 
@@ -628,15 +656,9 @@ public class Alpha : PhysicsGame
 
     }
 
-    ///-----------------------------------------------------------------------------------------------------///
-
-
-    ///-----------------------------------------------------------------------------------------------------///
-
-
-    ///-----------------------------------------------------------------------------------------------------///
-
-
+    /// <summary>
+    /// lisää pelaaja sekä sen ominaisuudet
+    /// </summary>
 
 
     private void LisaaPelaaja(Vector paikka, double leveys, double korkeus)
@@ -659,12 +681,19 @@ public class Alpha : PhysicsGame
         Add(pelaaja1);
     }
 
+    /// <summary>
+    /// mitä käy kun boulderiin osutaan
+    /// </summary>
     private void TormaaBoulder(IPhysicsObject hahmo, IPhysicsObject esine)
     {
         elamalaskuri.Value -= 2;
         esine.Destroy();
     }
 
+
+    /// <summary>
+    /// mitä käy kun pisteeseen lisäävään olioon osutaan. (tätä aliohjelmaa voiaan käyttää yleisesti kaikkialla pisteitä lisättävilla olioilla)
+    /// </summary>
     private void TormaPisteeseen(IPhysicsObject hahmo, IPhysicsObject esine)
     {
 
@@ -672,6 +701,10 @@ public class Alpha : PhysicsGame
 
         esine.Destroy();
     }
+
+    /// <summary>
+    /// mitä käy kun osutaan  elämiä lisäävään olentoon kuten sydömeen
+    /// </summary>
     private void TormaaSydameen(IPhysicsObject hahmo, IPhysicsObject esine)
     {
 
@@ -682,44 +715,41 @@ public class Alpha : PhysicsGame
     }
 
 
-
-    /// Pelaajan hyppy animaatio
+    /// <summary>
+    /// pelaajan hypyn asetuksen kuten nopeus ja korkeus
+    /// </summary>
     private void Hyppaa(PlatformCharacter hahmo, double nopeus)
     {
         hahmo.Jump(nopeus);
     }
-    //pelaaja  kävely
+    /// <summary>
+    /// liikkumisen nopeus
+    /// </summary>
     private void Liikuta(PlatformCharacter hahmo, double nopeus)
     {
         hahmo.Walk(nopeus);
     }
 
 
-    ///pelaajan animaatiot
-    ///Hyppäessä animaatio muuttuu hyppytliikkeeseen
-    ///
+    /// <summary>
+    /// pelaahan animaatio kun pelaaja painaa space baria eli pelaajan hyppy animaatio 
+    /// </summary>
+
     private void AnimaatioPelaajaHyppy(PlatformCharacter hahmo, double nopeus)
     {
         pelaaja1.Image = pelaajanKuvaHyppy;
     }
-
+    /// <summary>
+    /// kuva joka resetoii ÁnimaatioPelaajaHypyn eli pelaajan peruskuva
+    /// </summary>
     private void AnimaatioPelaajaAlas(PlatformCharacter hahmo, double nopeus)
     {
         pelaaja1.Image = pelaajanKuva;
     }
-    ///-----------------------------------------------------------------------------------------------------///
 
-
-    ////HUOM LISÄÄ VIHOLLIENN
-    ///
-    /// 
-
-
-    ///Saavutukset, elämän ja ajan vähennys sekä lisäys
-    ///
-
-    ///ELÄMÄN VÄHENNYS
-    ///
+    /// <summary>
+    /// laskuri joka vähentää elamaskuri olisota annetus ohjelman määrän elämiä
+    /// </summary>
 
     private void elamanVähennys(double määrä)
     {
@@ -727,16 +757,19 @@ public class Alpha : PhysicsGame
         elamalaskuri.Value -= määrä;
     }
 
+    /// <summary>
+    /// aliohjelma joka lisää elamalaskuriin annetun määrän elämiä
+    /// </summary>
     private void elamanLisays(double määrä)
     {
         elamalaskuri.Value += määrä;
     }
 
-    private void jaadytys(double määrä)
-    {
-        
-    }
 
+
+    /// <summary>
+    /// bonuspisteiden asetukset sekä niden ominaisuudet
+    /// </summary>
     private void LisääBonusPiste(PhysicsObject paikka)
     {
         PhysicsObject bonusPiste = new PhysicsObject(25, 25);
