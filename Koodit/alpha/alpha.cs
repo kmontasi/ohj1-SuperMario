@@ -11,6 +11,25 @@ using System.Collections.Generic;
 public class Alpha : PhysicsGame
 {
     /// <summary>
+    /// Lista aloitusvalikon kohdille
+    /// </summary>
+    List<Label> valikonKohdat;
+
+
+    /// <summary>
+    /// luodaan globaali pistelaskuri 
+    /// </summary>
+    private DoubleMeter pistelaskuri;
+
+
+    /// <summary>
+    /// luodaan elämälaskuri ja sen ominaisuudet
+    /// </summary>
+    /// 
+    private DoubleMeter elamalaskuri;
+
+
+    /// <summary>
     /// pelin asetukset sekä pelaajan animaation
     /// </summary>
     private const int RUUDUN_KOKO = 40;
@@ -19,6 +38,7 @@ public class Alpha : PhysicsGame
     private const double HYPPYNOPEUS = 600;
     private Image pelaajanKuva = LoadImage("PlumberB.png"); 
     private Image pelaajanKuvaHyppy = LoadImage("PlumberHyppy.png");
+
 
     /// <summary>
     /// Kuvat kaikista objekteista
@@ -30,6 +50,8 @@ public class Alpha : PhysicsGame
     private Image tahtiKuva = LoadImage("tahti.png");
     private Image SydanKuva = LoadImage("sydan.png");
     private Image loppuLippu = LoadImage("lippu.png");
+
+
     /// <summary>
     /// vihollisten animaatiot ja muut kuvat
     /// </summary>
@@ -56,7 +78,7 @@ public class Alpha : PhysicsGame
     /// kun valitaan lopeta peli, sammuta ohjelma
     /// </summary>
 
-   List<Label> valikonKohdat;
+   
     private void Valikko()
     { 
         Label otsikko = new Label("Pupuhuhdan Plumberman"); 
@@ -77,15 +99,11 @@ public class Alpha : PhysicsGame
         // Lisätään kaikki luodut kohdat peliin foreach-silmukalla
         foreach (Label valikonKohta in valikonKohdat)
         {
-
             Add(valikonKohta);
         }
 
         Mouse.ListenOn(kohta1, MouseButton.Left, ButtonState.Pressed, aloitaPeli, null);
-      //  Mouse.ListenOn(kohta2, MouseButton.Left, ButtonState.Pressed, ParhaatPisteet, null);
          Mouse.ListenOn(kohta3, MouseButton.Left, ButtonState.Pressed, Exit, null);
-
-        ///Hiiren värjäys
         Mouse.ListenOn(kohta1, HoverState.Enter, MouseButton.None, ButtonState.Irrelevant, ValikossaLiikkuminen, null, kohta1, true);
         Mouse.ListenOn(kohta1, HoverState.Exit, MouseButton.None, ButtonState.Irrelevant, ValikossaLiikkuminen, null, kohta1, false);
     }
@@ -133,9 +151,9 @@ public class Alpha : PhysicsGame
 
 
     /// <summary>
-    /// luodaan globaali pistelaskuri sekä sille osio
+    /// luodaan pistelaskuri
+    /// sekä sen asetukset ja sijainti
     /// </summary>
-    private DoubleMeter pistelaskuri;
 
     private void LuoPistelaskuri()
     {
@@ -155,7 +173,7 @@ public class Alpha : PhysicsGame
 
 
     /// <summary>
-    /// luodaan aikalaskuri sekä sen ominaisuudet
+    /// luodaan aikalaskuri sekä sen ominaisuudet sekä sijainti
     /// </summary>
     private Timer aikalaskuri;
     private void LuoAikalaskuri()
@@ -174,11 +192,10 @@ public class Alpha : PhysicsGame
     }
 
 
-    /// <summary>
-    /// luodaan elämälaskuri ja sen ominaisuudet
-    /// </summary>
-    private DoubleMeter elamalaskuri;
 
+    /// <summary>
+    /// luodaan elämälaskuri sekä sen asetukset ja sijainti
+    /// </summary>
     void LuoElamalaskuri()
     {
         elamalaskuri = new DoubleMeter(3);
@@ -205,7 +222,7 @@ public class Alpha : PhysicsGame
     
 
     /// <summary>
-    /// luodaan kentt¨ä sekä annetaan olioille tietyt kutsut
+    /// luodaan kenttä sekä annetaan olioille tietyt kutsut
     /// </summary>
 
     private void LuoKentta()
@@ -245,12 +262,12 @@ public class Alpha : PhysicsGame
         Keyboard.Listen(Key.Up, ButtonState.Released, AnimaatioPelaajaAlas, "Pelaaja hyppää", pelaaja1, NOPEUS);
     }
 
-
-    /// <summary>
-    /// aliohjelna mustalle tasolle
-    /// </summary>
-
-
+/// <summary>
+/// aliohjelma mustalle tasolle
+/// </summary>
+/// <param name="paikka"></param>
+/// <param name="leveys"></param>
+/// <param name="korkeus"></param>
     private void LisaaTaso(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject taso = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -260,10 +277,12 @@ public class Alpha : PhysicsGame
     }
 
 
-/// <summary>
-/// aliohjelma ruohotasolle
-/// </summary>
-
+    /// <summary>
+    /// aliohjelma ruohotasolle
+    /// </summary>
+    /// <param name="paikka"></param>
+    /// <param name="leveys"></param>
+    /// <param name="korkeus"></param>
     private void LisaaTasoRuoho(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject taso = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -276,9 +295,12 @@ public class Alpha : PhysicsGame
 
 
     }
-    /// <summary>
-    /// aliohjelma tiilitasolle
-    /// </summary>
+  /// <summary>
+  /// aliohjelma loppulipulle
+  /// </summary>
+  /// <param name="paikka"></param>
+  /// <param name="leveys"></param>
+  /// <param name="korkeus"></param>
     private void LisaaLoppuLippu(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject lippu = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -294,6 +316,10 @@ public class Alpha : PhysicsGame
     /// peli loppuu sekä  clear all kun pelaaja osuu loppu lippuun eli maaliin
     /// kutsuu tulosvalikon sekä antaa valikon asetukset
     /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="lippu"></param>
+
+
     private void TormaaLoppuLippuun(PhysicsObject hahmo, PhysicsObject lippu)
     {
         ClearAll();
@@ -302,9 +328,10 @@ public class Alpha : PhysicsGame
     }
 
     /// <summary>
-    /// aliohjelma tulosvalikolle 
+    ///aliohjelma tulosvalikolle 
     /// päättää otsikon toisen ohjelman lähetetyn arvon avulla eli onko häviö valikko vai onko voittovalikko
     /// </summary>
+    /// <param name="valinta"></param>
 
     private void tulosValikko(int valinta)
     {
@@ -361,9 +388,12 @@ public class Alpha : PhysicsGame
         Mouse.ListenOn(kohta1, HoverState.Exit, MouseButton.None, ButtonState.Irrelevant, ValikossaLiikkuminen, null, kohta1, false);
     }
 
-    /// <summary>
-    /// aliohjelma putkelle
-    /// </summary>
+/// <summary>
+/// aliohjelma putkelle
+/// </summary>
+/// <param name="paikka"></param>
+/// <param name="leveys"></param>
+/// <param name="korkeus"></param>
     private void LisaaputkiAlas(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject taso = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -374,9 +404,12 @@ public class Alpha : PhysicsGame
         AddCollisionHandler(taso, "Banaani", TormaaLamauttavaanBanaaniin);
 
     }
-    /// <summary>
-    /// aliohjelma tiilitaso
-    /// </summary>
+/// <summary>
+/// áliohjelma tiilitasolle
+/// </summary>
+/// <param name="paikka"></param>
+/// <param name="leveys"></param>
+/// <param name="korkeus"></param>
 
     private void LisaaTiiliTaso(Vector paikka, double leveys, double korkeus)
     {
@@ -386,9 +419,12 @@ public class Alpha : PhysicsGame
         Add(LisaaTiiliTaso);
     }
 
-    /// <summary>
-    /// aliohjelma kivitasolle
-    /// </summary>
+/// <summary>
+/// aliohjelma kivitasolle
+/// </summary>
+/// <param name="paikka"></param>
+/// <param name="leveys"></param>
+/// <param name="korkeus"></param>
     private void LisaaKivi(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject kivi = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -398,10 +434,11 @@ public class Alpha : PhysicsGame
     }
 
 
+
     /// <summary>
-    /// aliohjelma tähdelle sekä sen ominaisuudet
+    /// aliohjelma tähdellle
     /// </summary>
-    /// 
+    /// <param name="vihollinen"></param>
     private void LisaaTahti(PhysicsObject vihollinen)
     {
         PhysicsObject tahti = new PhysicsObject(25, 25);
@@ -416,9 +453,10 @@ public class Alpha : PhysicsGame
 
     }
 
-    /// <summary>
-    /// aliohjelma sydämelle
-    /// </summary>
+/// <summary>
+/// aliohjelma sydämelle
+/// </summary>
+/// <param name="vihollinen"></param>
     private void LisaaSydan(PhysicsObject vihollinen)
     {
         PhysicsObject sydan = new PhysicsObject(25, 25);
@@ -434,9 +472,12 @@ public class Alpha : PhysicsGame
     }
 
     /// <summary>
-    /// aliohjelma pääviholliselle
+    ///  aliohjelma pääviholliselle
     /// kong luo ajastimen sekä joka 1.8 sekuntti kutsuu kiviohjelman joka vierii eteenpäin
     /// </summary>
+    /// <param name="paikka"></param>
+    /// <param name="leveys"></param>
+    /// <param name="korkeus"></param>
     private void LisaaKongApina(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject kongApina = PhysicsObject.CreateStaticObject(70, 120);
@@ -455,6 +496,10 @@ public class Alpha : PhysicsGame
         ajastin.Start(); // Ajastin pitää aina muistaa käynnistää
     }
 
+    /// <summary>
+    /// aliohjelma boulderille
+    /// </summary>
+    /// <param name="kongApina"></param>
     private void LisaaBoulder(PhysicsObject kongApina)
     {
         if (kongApina.IsDestroyed== true)
@@ -477,6 +522,12 @@ public class Alpha : PhysicsGame
             boulder.Hit(aloitus * 1);
         }
     }
+
+    /// <summary>
+    /// kongapinan collitionit
+    /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="kong"></param>
     private void TormaaKongApinaan(PhysicsObject hahmo, PhysicsObject kong)
     {
         
@@ -484,7 +535,11 @@ public class Alpha : PhysicsGame
         LisaaTahti(kong);
 
     }
-
+    /// <summary>
+    /// boulderit collitionit
+    /// </summary>
+    /// <param name="ruoho"></param>
+    /// <param name="boulder"></param>
     private void TormaaBoulderiin(PhysicsObject ruoho, PhysicsObject boulder)
     {
         boulder.Destroy();
@@ -492,7 +547,12 @@ public class Alpha : PhysicsGame
 
 
 
-
+    /// <summary>
+    /// aliohjelma tulihahmolle
+    /// </summary>
+    /// <param name="paikka"></param>
+    /// <param name="leveys"></param>
+    /// <param name="korkeus"></param>
     private void LisaaVihollinenTulihahmo(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject vihollinenTulihahmo = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -511,7 +571,11 @@ public class Alpha : PhysicsGame
     }
 
 
-
+    /// <summary>
+    /// aliohelma tuliohelman collitionille
+    /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="vihollinen"></param>
     private void TormaaViholliseenTulihahmo(PhysicsObject hahmo, PhysicsObject vihollinen)
     {
 
@@ -523,7 +587,10 @@ public class Alpha : PhysicsGame
     }
 
 
-
+   /// <summary>
+   /// lisää tulipallo sekä sen ominaisuudet
+   /// </summary>
+   /// <param name="vihollinenTulihahmo"></param>
     private void LisaaTulipallo(PhysicsObject vihollinenTulihahmo)
     {
         if (vihollinenTulihahmo.IsDestroyed == true)
@@ -549,7 +616,13 @@ public class Alpha : PhysicsGame
         }
     }
 
-    ///TULIPALLON COLLARIT
+
+
+    /// <summary>
+    /// tulipallon collitionit
+    /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="tulipallo"></param>
     private void TormaaTulipallo(PhysicsObject hahmo, PhysicsObject tulipallo)
     {
         if (hahmo == pelaaja1)
@@ -562,12 +635,12 @@ public class Alpha : PhysicsGame
 
     }
 
-
     /// <summary>
     /// pieniapina joka heittää banaaneja ajastimen mukaan, siinä on myös rand joka päättää että heitetäänkö banaani ja mihin suuntaan se heitetääm
     /// </summary>
- 
-   
+    /// <param name="paikka"></param>
+    /// <param name="leveys"></param>
+    /// <param name="korkeus"></param>
     private void LisaaVihollinenPieniApina(Vector paikka, double leveys, double korkeus)
     {
         PhysicsObject vihollinenPieniApina = PhysicsObject.CreateStaticObject(leveys, korkeus);
@@ -584,6 +657,12 @@ public class Alpha : PhysicsGame
         ajastin.Timeout += delegate { LisaaBanaani(vihollinenPieniApina); }; // Aliohjelma, jota kutsutaan 2 sekunnin välein
         ajastin.Start(); // Ajastin pitää aina muistaa käynnistää
     }
+
+    /// <summary>
+    /// pienen apinana collitionit
+    /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="vihollinen"></param>
     private void TormaaVihollinenPieniApina(PhysicsObject hahmo, PhysicsObject vihollinen)
     {
             
@@ -592,11 +671,10 @@ public class Alpha : PhysicsGame
         LisaaSydan(vihollinen);
     }
 
-   
-    /// <summary>
-    /// pienen apinan heitettävä aliohjelma banani, tässä on rand gen
-    /// </summary>
-
+   /// <summary>
+   /// pienen apinan banaani
+   /// </summary>
+   /// <param name="vihollinenPieniApina"></param>
 
     private void LisaaBanaani(PhysicsObject vihollinenPieniApina)
     {
@@ -641,7 +719,9 @@ public class Alpha : PhysicsGame
     /// mitä käy kun banaaniin osutaan
     /// pelaajan elämä vähennetään ja banaani tulotaan (huom!! banaanilla on monta collaria)
     /// </summary>
-    /// 
+    /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="Banaani"></param>
     private void TormaaLamauttavaanBanaaniin(PhysicsObject hahmo, PhysicsObject Banaani)
     {
         if (hahmo == pelaaja1)
@@ -656,11 +736,12 @@ public class Alpha : PhysicsGame
 
     }
 
-    /// <summary>
-    /// lisää pelaaja sekä sen ominaisuudet
-    /// </summary>
-
-
+ /// <summary>
+ /// lisää pelaaja sekä sen ominaisuudet
+ /// </summary>
+ /// <param name="paikka"></param>
+ /// <param name="leveys"></param>
+ /// <param name="korkeus"></param>
     private void LisaaPelaaja(Vector paikka, double leveys, double korkeus)
     {
         pelaaja1 = new PlatformCharacter(30, 35);
@@ -681,9 +762,11 @@ public class Alpha : PhysicsGame
         Add(pelaaja1);
     }
 
-    /// <summary>
-    /// mitä käy kun boulderiin osutaan
-    /// </summary>
+/// <summary>
+/// boulderin collitionit
+/// </summary>
+/// <param name="hahmo"></param>
+/// <param name="esine"></param>
     private void TormaaBoulder(IPhysicsObject hahmo, IPhysicsObject esine)
     {
         elamalaskuri.Value -= 2;
@@ -694,6 +777,8 @@ public class Alpha : PhysicsGame
     /// <summary>
     /// mitä käy kun pisteeseen lisäävään olioon osutaan. (tätä aliohjelmaa voiaan käyttää yleisesti kaikkialla pisteitä lisättävilla olioilla)
     /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="esine"></param>
     private void TormaPisteeseen(IPhysicsObject hahmo, IPhysicsObject esine)
     {
 
@@ -705,6 +790,8 @@ public class Alpha : PhysicsGame
     /// <summary>
     /// mitä käy kun osutaan  elämiä lisäävään olentoon kuten sydömeen
     /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="esine"></param>
     private void TormaaSydameen(IPhysicsObject hahmo, IPhysicsObject esine)
     {
 
@@ -718,13 +805,17 @@ public class Alpha : PhysicsGame
     /// <summary>
     /// pelaajan hypyn asetuksen kuten nopeus ja korkeus
     /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="nopeus"></param>
     private void Hyppaa(PlatformCharacter hahmo, double nopeus)
     {
         hahmo.Jump(nopeus);
     }
     /// <summary>
-    /// liikkumisen nopeus
+    ///  liikkumisen nopeus
     /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="nopeus"></param>
     private void Liikuta(PlatformCharacter hahmo, double nopeus)
     {
         hahmo.Walk(nopeus);
@@ -734,23 +825,30 @@ public class Alpha : PhysicsGame
     /// <summary>
     /// pelaahan animaatio kun pelaaja painaa space baria eli pelaajan hyppy animaatio 
     /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="nopeus"></param>
 
     private void AnimaatioPelaajaHyppy(PlatformCharacter hahmo, double nopeus)
     {
         pelaaja1.Image = pelaajanKuvaHyppy;
     }
+
+
     /// <summary>
     /// kuva joka resetoii ÁnimaatioPelaajaHypyn eli pelaajan peruskuva
     /// </summary>
+    /// <param name="hahmo"></param>
+    /// <param name="nopeus"></param>
     private void AnimaatioPelaajaAlas(PlatformCharacter hahmo, double nopeus)
     {
         pelaaja1.Image = pelaajanKuva;
     }
 
+
     /// <summary>
     /// laskuri joka vähentää elamaskuri olisota annetus ohjelman määrän elämiä
     /// </summary>
-
+    /// <param name="määrä"></param>
     private void elamanVähennys(double määrä)
     {
 
@@ -760,6 +858,7 @@ public class Alpha : PhysicsGame
     /// <summary>
     /// aliohjelma joka lisää elamalaskuriin annetun määrän elämiä
     /// </summary>
+    /// <param name="määrä"></param>
     private void elamanLisays(double määrä)
     {
         elamalaskuri.Value += määrä;
@@ -770,6 +869,7 @@ public class Alpha : PhysicsGame
     /// <summary>
     /// bonuspisteiden asetukset sekä niden ominaisuudet
     /// </summary>
+    /// <param name="paikka"></param>
     private void LisääBonusPiste(PhysicsObject paikka)
     {
         PhysicsObject bonusPiste = new PhysicsObject(25, 25);
